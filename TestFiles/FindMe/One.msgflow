@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmHTTPHeader.msgnode="ComIbmHTTPHeader.msgnode" xmlns:ComIbmMQGet.msgnode="ComIbmMQGet.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmMSLMapping.msgnode="ComIbmMSLMapping.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmSOAPExtract.msgnode="ComIbmSOAPExtract.msgnode" xmlns:ComIbmSOAPRequest.msgnode="ComIbmSOAPRequest.msgnode"
+    xmlns:ComIbmWSRequest.msgnode="ComIbmWSRequest.msgnode" xmlns:EditHeaderBeforeMQ.subflow="EditHeaderBeforeMQ.subflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="GetUnitListTINE.msgflow" nsPrefix="GetUnitListTINE.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="GetUnitListTINE" bundleName="GetUnitListTINE" pluginId="tip025_paga_esql"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/tip025_paga_esql/icons/full/obj16/GetUnitListTINE.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/tip025_paga_esql/icons/full/obj30/GetUnitListTINE.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="1931,184" queueName="025_UNIT_DB">
+        <translation xmi:type="utility:ConstantString" string="025_UNIT_DB"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMSLMapping.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="572,20" mappingExpression="msl://{default}#OrgListTransformed_to_OrgUnitRequest">
+        <translation xmi:type="utility:ConstantString" string="OrgListTransformed_to_OrgUnitRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmSOAPRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="815,20" wsdlFileName="OrgStructure_1.wsdl" selectedPortType="IOrgStructureService" selectedBinding="BasicHttpBinding_IOrgStructureService" selectedOperation="getOrgUnit" selectedPort="OrgStructureServicePort" targetNamespace="http://bluegarden.no/organisation/structure/wsdl/v3" useHTTPTransport="true" webServiceURL="https://bsbsitnext.bluegarden.org/Synchronous/Organisation/Structure/v3/OrgStructure"
+          sslProtocol="TLSv1.2">
+        <translation xmi:type="utility:ConstantString" string="getOrgUnit"/>
+      </nodes>
+      <nodes xmi:type="ComIbmSOAPExtract.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="913,102">
+        <translation xmi:type="utility:ConstantString" string="SOAP Extract"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMSLMapping.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="1018,102" mappingExpression="msl://{tip025_paga_esql}#OrgUnit_Transform">
+        <translation xmi:type="utility:ConstantString" string="OrgUnitTransform"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMSLMapping.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_22" location="1295,102" mappingExpression="msl://{default}#PutIntoEnv">
+        <translation xmi:type="utility:ConstantString" string="PutIntoEnv"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_23" location="1517,102" URLSpecifier="https://bsbsitnext.bluegarden.org/Synchronous/GetAnsatt/Rest/GetAnsattnrByUserid/" httpMethod="GET" httpVersion="1.1" protocol="TLSv1.2" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="HTTP Request"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMSLMapping.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="1647,102" mappingExpression="msl://{default}#EnrichUnitData">
+        <translation xmi:type="utility:ConstantString" string="EnrichUnitData"/>
+      </nodes>
+      <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="1389,102" httpResponseHeader="DeleteHeader" httpRequestHeader="Add">
+        <translation xmi:type="utility:ConstantString" string="AddHTTPRequest"/>
+        <nameValue4RequestHeader name="Authorization" value="Basic YnNiY2xpZW50XzUxMTpic2JjbGllbnRfNTEx"/>
+        <nsMappingTable nsPrefix="Org" namespace="http://bluegarden.no/organisation/structure/object/v3"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="1793,20" queueName="025_ERROR_LOG">
+        <translation xmi:type="utility:ConstantString" string="025_ERROR_LOG"/>
+      </nodes>
+      <nodes xmi:type="EditHeaderBeforeMQ.subflow:FCMComposite_1" xmi:id="FCMComposite_1_15" location="1782,184">
+        <translation xmi:type="utility:ConstantString" string="EditHeaderBeforeMQ"/>
+      </nodes>
+      <nodes xmi:type="EditHeaderBeforeMQ.subflow:FCMComposite_1" xmi:id="FCMComposite_1_16" location="1627,20">
+        <translation xmi:type="utility:ConstantString" string="EditHeaderBeforeMQ1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="240,20" computeExpression="esql://routine/#IterateThroughIDs.Main">
+        <translation xmi:type="utility:ConstantString" string="IterateThroughIDs"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_18" location="387,20" queueName="025_GET_UNIT_LIST_TINE" messageDomainProperty="XMLNSC" getWithMessageID="true">
+        <translation xmi:type="utility:ConstantString" string="025_GET_UNIT_LIST_TINE"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="10,20" queueName="025_MESSAGEID_TRANSPORT_2_TINE" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="025_MESSAGEID_TRANSPORT_2_TINE"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_20" location="371,266" queueName="025_MESSAGEID_TRANSPORT_3">
+        <translation xmi:type="utility:ConstantString" string="025_MESSAGEID_TRANSPORT_3"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_21" location="2040,184" computeExpression="esql://routine/#StoreMsgId.Main">
+        <translation xmi:type="utility:ConstantString" string="StoreMsgId"/>
+      </nodes>
+      <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="1151,174">
+        <outTerminals terminalNodeID="HasLeder" dynamic="true" label="HasLeder"/>
+        <outTerminals terminalNodeID="HasNoLeder" dynamic="true" label="HasNoLeder"/>
+        <translation xmi:type="utility:ConstantString" string="Leder_Or_No_Leder1"/>
+        <filterTable filterPattern="string-length($Root/XMLNSC/Org:OrgUnitTransformed/Org:OrgUnit/Org:org_leder) != '0'" routingOutputTerminal="HasLeder"/>
+        <filterTable filterPattern="string-length($Root/XMLNSC/Org:OrgUnitTransformed/Org:OrgUnit/Org:org_leder) = '0'" routingOutputTerminal="HasNoLeder"/>
+        <nsMappingTable nsPrefix="Org" namespace="http://bluegarden.no/organisation/structure/object/v3"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_22" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_22" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_23" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_19" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_15" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.fault" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_21" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_26" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_27" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_16" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_28" targetNode="FCMComposite_1_20" sourceNode="FCMComposite_1_17" sourceTerminalName="OutTerminal.out1" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_29" targetNode="FCMComposite_1_17" sourceNode="FCMComposite_1_19" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_30" targetNode="FCMComposite_1_18" sourceNode="FCMComposite_1_17" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_31" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_18" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_32" targetNode="FCMComposite_1_21" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_15" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_22" sourceNode="FCMComposite_1_9" sourceTerminalName="HasLeder" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_15" sourceNode="FCMComposite_1_9" sourceTerminalName="HasNoLeder" targetTerminalName="InTerminal.Input"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
